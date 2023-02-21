@@ -1,0 +1,86 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@import url('https://fonts.cdnfonts.com/css/-19');
+h1 {
+  text-align: center;
+  font-size: 3rem;
+  font-family: "Atalon", sans-serif;
+  margin: 2rem;
+}
+
+main{
+  background-color: #c7c7c7;
+  width: fit-content;
+  margin: 0 auto;
+  height: 50vh;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  div#displace{
+    transform: translateY(22%);
+    div.slice{
+      position: relative;
+      width: 70px;
+      height: 70px;
+      background-color: #ff0000;
+      border-radius: 0 100% 0 0;
+      border-style: solid solid none none;
+      border-color: #be966a;
+      border-width: 10px;
+      transform: rotateZ(135deg);
+      animation: roll infinite 10s linear;
+      @keyframes roll {
+        0% {
+          transform: rotateZ(135deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        80% {
+          transform:translateX(72vw) rotateZ(135deg);
+        }
+        100% {
+          transform:translateX(72vw) rotateZ(135deg);
+        }
+
+      }
+    }
+  }
+  div#tapis-roulant{
+    background-color: black;
+    padding: 5px;
+    border-radius: 100px;
+    width: 70vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-style: solid;
+    border-color: #7a7a7a;
+    border-width: 7px;
+    div.roue{
+      width: fit-content;
+      aspect-ratio: 1/1;
+      padding: 10px;
+      border-radius: 50%;
+      background-color: #c7c7c7;
+      animation: rotate infinite 1s linear;
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+  }
+
+
+}
