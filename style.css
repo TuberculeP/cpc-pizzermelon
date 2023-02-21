@@ -10,12 +10,33 @@
 h1 {
   text-align: center;
   font-size: 3rem;
-  font-family: "Atalon", sans-serif;
+  font-family: monospace;
   margin: 2rem;
 }
 
+h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-family: "Atalon", sans-serif;
+  margin: 2rem;
+}
+h2 span {
+  font-size: 2rem;
+}
+h2 span.red {
+  color: red;
+}
+h2 span.green {
+  color: green;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
+
 main {
-  background-color: #c7c7c7;
   width: fit-content;
   margin: 0 auto;
   height: 50vh;
@@ -23,35 +44,153 @@ main {
   justify-content: flex-end;
   flex-direction: column;
 }
+main div#machine {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  gap: 14vw;
+  z-index: 10;
+}
+main div#machine div.machine {
+  position: relative;
+  transform: translateY(57%);
+  width: 110px;
+  height: 100px;
+  background-color: black;
+  border-radius: 50px 50px 0 0;
+}
+main div#machine div.machine:before {
+  position: absolute;
+  content: "";
+  width: 20px;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: paint infinite 8s linear;
+  border-radius: 50% 50% 0 0;
+}
+@keyframes paint {
+  0%, 16.66% {
+    transform: translateX(-50%) translateY(0);
+    height: 100px;
+  }
+  24% {
+    transform: translateX(-50%) translateY(50px);
+    height: 50px;
+  }
+  33.33%, 50% {
+    transform: translateX(-50%) translateY(0);
+    height: 100px;
+  }
+  58% {
+    transform: translateX(-50%) translateY(50px);
+    height: 50px;
+  }
+  66.66%, 100% {
+    transform: translateX(-50%) translateY(0);
+    height: 100px;
+  }
+}
+main div#machine div.machine:first-of-type::before {
+  background-color: #3b3b3b;
+}
+main div#machine div.machine:last-of-type::before {
+  background-color: red;
+}
 main div#displace {
-  transform: translateY(22%);
+  position: relative;
+  height: 52px;
 }
 main div#displace div.slice {
-  position: relative;
+  position: absolute;
+  z-index: 2;
+  top: 0;
   width: 70px;
   height: 70px;
-  background-color: #ff0000;
   border-radius: 0 100% 0 0;
   border-style: solid solid none none;
-  border-color: #be966a;
   border-width: 10px;
   transform: rotateZ(135deg);
-  animation: roll infinite 10s linear;
+  animation: roll infinite 8s linear;
 }
 @keyframes roll {
   0% {
     transform: rotateZ(135deg);
-    opacity: 0;
+    background-color: red;
+    border-color: #dc995a;
   }
-  10% {
-    opacity: 1;
+  16.66% {
+    transform: translateX(21.6645vw) rotateZ(135deg);
+    background-color: red;
+    border-color: #dc995a;
   }
-  80% {
-    transform: translateX(72vw) rotateZ(135deg);
+  33.33% {
+    transform: translateX(21.6645vw) rotateZ(135deg);
+    border-color: #494949;
+    background-color: black;
   }
-  100% {
-    transform: translateX(72vw) rotateZ(135deg);
+  50% {
+    transform: translateX(43.329vw) rotateZ(135deg);
+    border-color: #494949;
+    background-color: black;
   }
+  66.66% {
+    transform: translateX(43.329vw) rotateZ(135deg);
+    border-color: #07c007;
+    background-color: red;
+  }
+  83.33%, 100% {
+    transform: translateX(65vw) rotateZ(135deg);
+    background-color: red;
+    border-color: green;
+  }
+}
+main div#displace div.slice::after {
+  content: "";
+  position: absolute;
+  animation: style infinite 8s linear;
+}
+@keyframes style {
+  0%, 16.66% {
+    width: 20px;
+    height: 20px;
+    background-color: #fff500;
+    bottom: 10px;
+    left: 10px;
+    transform: rotateZ(0);
+  }
+  33.33%, 50% {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+    border: 0 solid transparent;
+  }
+  66.66%, 83.33% {
+    width: 20px;
+    height: 10px;
+    border: 10px solid transparent;
+    border-right: 10px solid black;
+    bottom: 5px;
+    left: 5px;
+    transform: rotateZ(-45deg);
+  }
+}
+main div#displace div.funnel {
+  position: absolute;
+  z-index: 5;
+  bottom: -7px;
+  width: 80px;
+  height: 80px;
+  background-color: #3b3b3b;
+  border: 10px solid #3b3b3b;
+}
+main div#displace div.funnel.left {
+  border-radius: 100% 0 0 0;
+  left: -30px;
+}
+main div#displace div.funnel.right {
+  border-radius: 0 100% 0 0;
+  right: -30px;
 }
 main div#tapis-roulant {
   background-color: black;
@@ -71,15 +210,27 @@ main div#tapis-roulant div.roue {
   padding: 10px;
   border-radius: 50%;
   background-color: #c7c7c7;
-  animation: rotate infinite 1s linear;
+  animation: rotate infinite 8s linear;
 }
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
   }
-  100% {
-    transform: rotate(360deg);
+  16.66%, 33.33% {
+    transform: rotate(720deg);
   }
+  50%, 66.66% {
+    transform: rotate(1440deg);
+  }
+  83.33%, 100% {
+    transform: rotate(2160deg);
+  }
+}
+main div#foot {
+  height: 150px;
+  width: 50px;
+  background-color: #3b3b3b;
+  margin: 0 auto;
 }
 
 /*# sourceMappingURL=style.css.map */

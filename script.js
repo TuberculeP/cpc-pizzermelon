@@ -4,4 +4,8 @@ function generateSlice() {
     return slice;
 }
 
-document.querySelector('#displace').appendChild(generateSlice());
+for(let i = 0; i<1; i++) {
+    setTimeout(() => {
+        document.querySelector('#displace').appendChild(generateSlice());
+    }, (8000/3)*i);
+}

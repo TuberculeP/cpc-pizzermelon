@@ -10,46 +10,198 @@
 h1 {
   text-align: center;
   font-size: 3rem;
-  font-family: "Atalon", sans-serif;
+  font-family: monospace;
   margin: 2rem;
 }
 
+h2{
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: "Atalon", sans-serif;
+    margin: 2rem;
+  span{
+    font-size: 2rem;
+    &.red{
+        color: red;
+    }
+    &.green{
+      color: green;
+    }
+  }
+  span.green{
+  }
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
+
 main{
-  background-color: #c7c7c7;
   width: fit-content;
   margin: 0 auto;
   height: 50vh;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
-  div#displace{
-    transform: translateY(22%);
-    div.slice{
+  div#machine{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    gap: 14vw;
+    z-index: 10;
+    div.machine{
       position: relative;
+      transform: translateY(57%);
+      width: 110px;
+      height: 100px;
+      background-color: black;
+      border-radius: 50px 50px 0 0;
+      &:before{
+        position: absolute;
+        content: "";
+        width: 20px;
+        top: -100%;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: paint infinite 8s linear;
+        border-radius: 50% 50% 0 0;
+        @keyframes paint {
+          0%,16.66% {
+            transform: translateX(-50%) translateY(0);
+            height: 100px;
+          }
+          24%{
+            transform: translateX(-50%) translateY(50px);
+            height: 50px;
+          }
+          33.33%, 50%{
+            transform: translateX(-50%) translateY(0);
+            height: 100px;
+          }
+          58%{
+            transform: translateX(-50%) translateY(50px);
+            height: 50px;
+          }
+          66.66%, 100%{
+            transform: translateX(-50%) translateY(0);
+            height: 100px;
+          }
+
+        }
+      }
+      &:first-of-type{
+        &::before{
+          background-color: #3b3b3b;
+
+        }
+      }
+      &:last-of-type{
+        &::before{
+          background-color: red;
+        }
+      }
+    }
+  }
+  div#displace{
+    position: relative;
+    height: 52px;
+    div.slice{
+      position: absolute;
+      z-index: 2;
+      top: 0;
       width: 70px;
       height: 70px;
-      background-color: #ff0000;
       border-radius: 0 100% 0 0;
       border-style: solid solid none none;
-      border-color: #be966a;
       border-width: 10px;
       transform: rotateZ(135deg);
-      animation: roll infinite 10s linear;
+      animation: roll infinite 8s linear;
       @keyframes roll {
         0% {
           transform: rotateZ(135deg);
-          opacity: 0;
-        }
-        10% {
-          opacity: 1;
-        }
-        80% {
-          transform:translateX(72vw) rotateZ(135deg);
-        }
-        100% {
-          transform:translateX(72vw) rotateZ(135deg);
+          background-color: red;
+          border-color: #dc995a;
         }
 
+        16.66%{
+          transform: translateX(calc(65vw * 0.3333)) rotateZ(135deg);
+          background-color: red;
+          border-color: #dc995a;
+        }
+        33.33%{
+          transform: translateX(calc(65vw * 0.3333)) rotateZ(135deg);
+          border-color: #494949;
+          background-color: black;
+        }
+
+        50%{
+          transform: translateX(calc(65vw * 0.6666)) rotateZ(135deg);
+          border-color: #494949;
+          background-color: black;
+        }
+        66.66%{
+          transform: translateX(calc(65vw * 0.6666)) rotateZ(135deg);
+          border-color: #07c007;
+          background-color: red;
+        }
+
+        83.33%,100%{
+          transform: translateX(65vw) rotateZ(135deg);
+          background-color: red;
+          border-color: green;
+
+        }
+      }
+      &::after{
+        content: "";
+        position: absolute;
+        animation: style infinite 8s linear;
+        @keyframes style {
+          0%, 16.66%{
+            width: 20px;
+            height: 20px;
+            background-color: #fff500;
+            bottom: 10px;
+            left: 10px;
+            transform: rotateZ(0);
+          }
+          33.33%, 50%{
+            width: 0;
+            height: 0;
+            background-color: transparent;
+            border: 0 solid transparent;
+          }
+          66.66%, 83.33%{
+            width: 20px;
+            height: 10px;
+            border: 10px solid transparent;
+            border-right: 10px solid black;
+            bottom: 5px;
+            left: 5px;
+            transform: rotateZ(-45deg);
+          }
+
+        }
+      }
+    }
+    div.funnel{
+      position: absolute;
+      z-index: 5;
+      bottom: -7px;
+      width: 80px;
+      height: 80px;
+      background-color: #3b3b3b;
+      border: 10px solid #3b3b3b;
+      &.left{
+        border-radius: 100% 0 0 0;
+        left: -30px;
+      }
+      &.right{
+        border-radius: 0 100% 0 0;
+        right: -30px;
       }
     }
   }
@@ -70,17 +222,30 @@ main{
       padding: 10px;
       border-radius: 50%;
       background-color: #c7c7c7;
-      animation: rotate infinite 1s linear;
+      animation: rotate infinite 8s linear;
       @keyframes rotate {
         0% {
           transform: rotate(0deg);
         }
-        100% {
-          transform: rotate(360deg);
+
+        16.66%, 33.33%{
+          transform: rotate(calc(360deg * 2));
+        }
+
+        50%, 66.66%{
+          transform: rotate(calc(360deg * 4));
+        }
+
+        83.33% ,100%{
+          transform: rotate(calc(360deg * 6));
         }
       }
     }
   }
-
-
+  div#foot{
+    height: 150px;
+    width: 50px;
+    background-color: #3b3b3b;
+    margin: 0 auto;
+  }
 }
